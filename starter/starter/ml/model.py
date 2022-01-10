@@ -1,4 +1,5 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.neighbors import KNeighborsClassifier
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +18,11 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X_train, y_train)
 
-    pass
+    return knn
+
 
 
 def compute_model_metrics(y, preds):
