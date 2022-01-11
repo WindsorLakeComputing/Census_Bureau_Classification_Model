@@ -4,8 +4,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import joblib
 from ml.data import process_data
-from ml.model import train_model
-# Add the necessary imports for the starter code.
+from ml.model import train_model, compute_model_metrics, inference
 
 # Add code to load in the data.
 local_path = "../data/clean_census.csv"
@@ -28,6 +27,12 @@ X_train, y_train, encoder, lb = process_data(
 )
 
 # Proces the test data with the process_data function.
-knn_model = train_model(X_train, y_train)
-joblib.dump(knn_model, '../model/knn_model.pkl')
-# Train and save a model.
+lgbm_class = train_model(X_train, y_train)
+joblib.dump(lgbm_class, '../model/lgbm_class.pkl')
+
+X_test, y_test, encoder, lb = process_data(
+    test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+)
+
+preds = inference(lgbm_class, X_test)
+precision, recall, beta = compute_model_metrics(y_test, preds)
