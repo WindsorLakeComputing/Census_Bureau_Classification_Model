@@ -5,6 +5,7 @@ import pandas as pd
 import joblib
 from ml.data import process_data
 from ml.model import train_model, compute_model_metrics, inference
+from ml.test_model import test_precision, test_recall, test_beta
 
 # Add code to load in the data.
 local_path = "../data/clean_census.csv"
@@ -22,6 +23,7 @@ cat_features = [
     "sex",
     "native-country",
 ]
+
 X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
@@ -30,9 +32,27 @@ X_train, y_train, encoder, lb = process_data(
 lgbm_class = train_model(X_train, y_train)
 joblib.dump(lgbm_class, '../model/lgbm_class.pkl')
 
-X_test, y_test, encoder, lb = process_data(
+X_test, y_test, new_encoder, new_lib  = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
 
 preds = inference(lgbm_class, X_test)
 precision, recall, beta = compute_model_metrics(y_test, preds)
+
+test_precision(precision)
+test_recall(recall)
+test_beta(beta)
+
+f = open("slice_output.txt", "w")
+for unc_e in test["education"].unique():
+    df_t = test[test["education"] == unc_e]
+
+    X_test_u, y_test_u, encoder_u, lb_u = process_data(
+        df_t, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+    )
+
+    preds = inference(lgbm_class, X_test_u)
+    precision, recall, beta = compute_model_metrics(y_test_u, preds)
+    f.write(f"Inside of \"education\" column, the distinct value of \"{unc_e.strip()}\" has the following metrics: \n")
+    f.write(f"precision, {precision} recall, {recall} beta, {beta}\n")
+f.close()
