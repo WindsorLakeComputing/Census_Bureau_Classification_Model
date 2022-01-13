@@ -31,12 +31,22 @@ X_train, y_train, encoder, lb = process_data(
 # Proces the test data with the process_data function.
 lgbm_class = train_model(X_train, y_train)
 joblib.dump(lgbm_class, '../model/lgbm_class.pkl')
+joblib.dump(encoder, '../model/encoder.pkl')
+joblib.dump(lb, '../model/lb.pkl')
 
 X_test, y_test, new_encoder, new_lib  = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
+print("The race is")
+print(test['race'])
+print("X_test is ")
+print(X_test)
 
 preds = inference(lgbm_class, X_test)
+print("the preds are ")
+print(preds)
+print(y_test)
+print(test)
 precision, recall, beta = compute_model_metrics(y_test, preds)
 
 test_precision(precision)
