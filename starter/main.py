@@ -28,7 +28,7 @@ app = FastAPI()
 
 @app.get("/")
 async def say_hello():
-    return {"greeting": "Hello World!"}
+    return {"greeting": "Hello there!"}
 
 # This allows sending of data (our TaggedItem) via POST to the API.
 @app.post("/census/")
@@ -64,8 +64,14 @@ async def create_item(entry: CensusEntry):
     )
     preds = inference(lgbm_class, X_test)
     print('preds is ')
-    print(preds)
+    print(preds[0])
+    answer = ""
+    if(preds[0] == 0):
+        answer = "<=50K"
+    else:
+        answer = ">50K"
+    return ("The prediction is that the salary is " + answer)
 
 
 
-    return entry
+    #return entry
