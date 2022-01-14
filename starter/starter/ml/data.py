@@ -68,3 +68,23 @@ def process_data(
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
+
+def get_cat_features():
+    """
+    Returns
+    -------
+    cat_features : array
+                   A one-dimensional array of categorical columns indices names.
+    """
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+
+    return cat_features

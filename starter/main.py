@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 import json
 from starter.ml.model import inference
-from starter.ml.data import process_data
+from starter.ml.data import process_data, get_cat_features
 
 from pydantic import BaseModel
 
@@ -23,55 +23,27 @@ class CensusEntry(BaseModel):
     hours_per_week: int
     native_country: str
 
-# Instantiate the app.
 app = FastAPI()
 
 @app.get("/")
 async def say_hello():
     return {"greeting": "Hello there!"}
 
-# This allows sending of data (our TaggedItem) via POST to the API.
 @app.post("/census/")
 async def create_item(entry: CensusEntry):
     lgbm_class = joblib.load('./model/lgbm_class.pkl')
     encoder = joblib.load('./model/encoder.pkl')
     lb = joblib.load('./model/lb.pkl')
-    print("entry is")
-    print(entry.__dict__)
-    dict = entry.__dict__
-    #df = pd.DataFrame.from_dict(dict)
-    df = pd.DataFrame([dict])
-    print('dict[race] is')
-    print(dict['race'])
-    jsonStr = json.dumps(entry.__dict__)
-    #df = pd.read_json(jsonStr, orient='index')
-    cat_features = [
-        "workclass",
-        "education",
-        "marital-status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native-country",
-    ]
-    #print("df.head()")
-    #print(df.head())
+    dict_e = entry.__dict__
+    df = pd.DataFrame([dict_e])
     df = df.rename(columns={'marital_status': 'marital-status', 'native_country': 'native-country'})
-    print(df['marital-status'])
     X_test, y_test, new_encoder, new_lib = process_data(
-        df, categorical_features=cat_features, label=None, training=False, encoder=encoder, lb=lb
+        df, categorical_features=get_cat_features(), label=None, training=False, encoder=encoder, lb=lb
     )
     preds = inference(lgbm_class, X_test)
-    print('preds is ')
-    print(preds[0])
     answer = ""
     if(preds[0] == 0):
         answer = "<=50K"
     else:
         answer = ">50K"
     return ("The prediction is that the salary is " + answer)
-
-
-
-    #return entry
