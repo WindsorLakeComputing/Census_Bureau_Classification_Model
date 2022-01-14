@@ -29,6 +29,12 @@ precision, recall, beta = compute_model_metrics(y_test, preds)
 test_precision(precision)
 test_recall(recall)
 test_beta(beta)
+print("precision is")
+print(precision)
+print("recall is")
+print(recall)
+print("beta")
+print(beta)
 
 f = open("slice_output.txt", "w")
 for unc_e in test["education"].unique():
