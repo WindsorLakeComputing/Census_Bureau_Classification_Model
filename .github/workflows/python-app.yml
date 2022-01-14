@@ -39,8 +39,9 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Pull data from DVC
-      run: dvc remote add -d s3-bucket s3://bit-bucket-census
-      run: dvc pull 
+      run: |
+        dvc remote add -d s3-bucket s3://bit-bucket-census
+        dvc pull 
     - name: Test with pytest
       run: |
         pytest local_test.py
