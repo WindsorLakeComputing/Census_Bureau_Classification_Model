@@ -40,4 +40,4 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Test with pytest
       run: |
-        pytest local_test.py
+        pytest
