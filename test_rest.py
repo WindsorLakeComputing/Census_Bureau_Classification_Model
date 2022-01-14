@@ -9,9 +9,9 @@ entry = {'age': '47', 'workclass': 'Private-gov', 'fnlgt': '51835', 'education':
 
 
 
-#response = requests.get('https://census-prosperity-app.herokuapp.com/', data=json.dumps(entry))
+response = requests.get('https://census-prosperity-app.herokuapp.com/', data=json.dumps(entry))
 
-response = requests.get('https://census-prosperity-app.herokuapp.com:5000/', data=json.dumps(entry))
+#response = requests.get('https://census-prosperity-app.herokuapp.com:5000/', data=json.dumps(entry))
 
-print(response.status_code)
-print(response.json())
+#print(response.status_code)
+#print(response.json())
