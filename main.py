@@ -2,8 +2,8 @@ from fastapi import FastAPI
 import joblib
 import pandas as pd
 import json
-from starter.ml.model import inference
-from starter.ml.data import process_data, get_cat_features
+from starter.starter.ml.model import inference
+from starter.starter.ml.data import process_data, get_cat_features
 
 from pydantic import BaseModel
 
@@ -31,9 +31,9 @@ async def say_hello():
 
 @app.post("/census/")
 async def create_item(entry: CensusEntry):
-    lgbm_class = joblib.load('./model/lgbm_class.pkl')
-    encoder = joblib.load('./model/encoder.pkl')
-    lb = joblib.load('./model/lb.pkl')
+    lgbm_class = joblib.load('./starter/model/lgbm_class.pkl')
+    encoder = joblib.load('./starter/model/encoder.pkl')
+    lb = joblib.load('./starter/model/lb.pkl')
     dict_e = entry.__dict__
     df = pd.DataFrame([dict_e])
     df = df.rename(columns={'marital_status': 'marital-status', 'native_country': 'native-country'})
