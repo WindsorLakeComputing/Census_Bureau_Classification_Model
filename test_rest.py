@@ -5,13 +5,18 @@ import json
 entry = {'age': '47', 'workclass': 'Private-gov', 'fnlgt': '51835', 'education': 'Prof-school', 'education_num': '15','marital_status': 'Married-civ-spouse','occupation': 'Prof-specialty', 'relationship': 'Wife','race': 'White','sex': 'Female','capital_gain': '0','capital_loss':'1902','hours_per_week': '60', 'native_country': 'Honduras'}
 
 
-#response = requests.post('https://census-prosperity-app.herokuapp.com:5000/census/', data=json.dumps(entry))
+response1 = requests.post('https://census-prosperity-app.herokuapp.com/census/', data=json.dumps(entry))
 
 
 
-response = requests.get('https://census-prosperity-app.herokuapp.com/', data=json.dumps(entry))
+response2 = requests.get('https://census-prosperity-app.herokuapp.com/', data=json.dumps(entry))
 
 #response = requests.get('https://census-prosperity-app.herokuapp.com:5000/', data=json.dumps(entry))
 
-#print(response.status_code)
-#print(response.json())
+print(response1.status_code)
+print(response1.json())
+
+print(response2.status_code)
+print(response2.json())
+
+
