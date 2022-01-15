@@ -47,13 +47,13 @@ def test_preditions(preds, y_test):
     print("beta")
     print(beta)
 
-def print_model_metrics(file_name, test_data, label, encoder, lb, model):
+def print_model_metrics(file_name, test_data, label, encoder, lb, model, categorical_col):
     f = open(file_name, "w")
-    for unc_e in test_data["education"].unique():
-        df_t = test_data[test_data["education"] == unc_e]
+    for unc_e in test_data[categorical_col].unique():
+        df_t = test_data[test_data[categorical_col] == unc_e]
         preds, y_test = make_predictions(model, label, encoder, lb, df_t)
         precision, recall, beta = compute_model_metrics(y_test, preds)
-        f.write(f"Inside of \"education\" column, the distinct value of \"{unc_e.strip()}\" has the following metrics: \n")
+        f.write(f"Inside of \"{categorical_col}\" column, the distinct value of \"{unc_e.strip()}\" has the following metrics: \n")
         f.write(f"precision, {precision} recall, {recall} beta, {beta}\n")
     f.close()
 
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     lgbm_class, encoder, lb = train_lgbm_model(train_data, "salary")
     preds, y_test = make_predictions(lgbm_class, "salary", encoder, lb, test_data)
     test_preditions(preds, y_test)
-    print_model_metrics("slice_output.txt", test_data, "salary", encoder, lb, lgbm_class)
+    print_model_metrics("slice_output.txt", test_data, "salary", encoder, lb, lgbm_class, "education")
