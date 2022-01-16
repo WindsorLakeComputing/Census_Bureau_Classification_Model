@@ -5,8 +5,6 @@ import pandas as pd
 import joblib
 from ml.data import process_data, get_cat_features
 from ml.model import train_model, compute_model_metrics, inference
-from ml.test_model import test_precision, test_recall, test_beta
-
 
 def train_lgbm_model(train_data, label):
     X_train, y_train, encoder, lb = process_data(
@@ -23,6 +21,9 @@ def get_train_test_data(data_path, test_size):
     data = pd.read_csv(data_path)
     # Optional enhancement, use K-fold cross validation instead of a train-test split.
     train_data, test_data = train_test_split(data, test_size=test_size)
+    print("The count of data is")
+    assert (data['occupation'].count() < 32562)
+    print(data['occupation'].count())
 
     return train_data, test_data
 
@@ -61,5 +62,4 @@ if __name__ == "__main__":
     train_data, test_data = get_train_test_data("../data/clean_census.csv", .2)
     lgbm_class, encoder, lb = train_lgbm_model(train_data, "salary")
     preds, y_test = make_predictions(lgbm_class, "salary", encoder, lb, test_data)
-    test_preditions(preds, y_test)
     print_model_metrics("slice_output.txt", test_data, "salary", encoder, lb, lgbm_class, "education")

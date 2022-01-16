@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import joblib
 import pandas as pd
-import json
 from starter.starter.ml.model import inference
 from starter.starter.ml.data import process_data, get_cat_features
 
