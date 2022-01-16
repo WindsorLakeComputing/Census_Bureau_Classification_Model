@@ -4,25 +4,25 @@ import joblib
 
 @pytest.fixture(scope="module")
 def data():
-    data = pd.read_csv("../starter/data/clean_census.csv")
+    data = pd.read_csv("starter/data/clean_census.csv")
 
     return data
 
 @pytest.fixture(scope="module")
 def model():
-    lgbm_class = joblib.load('../starter/model/lgbm_class.pkl')
+    lgbm_class = joblib.load('starter/model/lgbm_class.pkl')
 
     return lgbm_class
 
 @pytest.fixture(scope="module")
 def encoder():
-    encoder = joblib.load('../starter/model/encoder.pkl')
+    encoder = joblib.load('starter/model/encoder.pkl')
 
     return encoder
 
 @pytest.fixture(scope="module")
 def lb():
-    lb = joblib.load('../starter/model/lb.pkl')
+    lb = joblib.load('starter/model/lb.pkl')
 
     return lb
 
