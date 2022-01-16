@@ -35,19 +35,6 @@ def make_predictions(model, label, encoder, lb, test_data):
 
     return preds, y_test
 
-def test_preditions(preds, y_test):
-    precision, recall, beta = compute_model_metrics(y_test, preds)
-
-    test_precision(precision)
-    test_recall(recall)
-    test_beta(beta)
-    print("precision is")
-    print(precision)
-    print("recall is")
-    print(recall)
-    print("beta")
-    print(beta)
-
 def print_model_metrics(file_name, test_data, label, encoder, lb, model, categorical_col):
     f = open(file_name, "w")
     for unc_e in test_data[categorical_col].unique():
