@@ -13,6 +13,7 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
         exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
+
 def replace_hyphens(string: str) -> str:
     return string.replace('_','-')
 
@@ -39,6 +40,13 @@ class CensusEntry(BaseModel):
 
 app = FastAPI()
 
+@app.on_event("startup")
+async def startup_event():
+  global model, encoder, binarizer
+  model = joblib.load("./starter/model/lgbm_class.pkl")
+  encoder = joblib.load("./starter/model/encoder.pkl")
+  binarizer = joblib.load("./starter/model/lb.pkl")
+
 @app.get("/")
 async def say_hello():
     return {"greeting": "Hello there!"}
@@ -46,15 +54,12 @@ async def say_hello():
 @app.post("/census/")
 async def create_item(entry: CensusEntry):
     entry_underscores = entry.dict(by_alias=True)
-    lgbm_class = joblib.load('./starter/model/lgbm_class.pkl')
-    encoder = joblib.load('./starter/model/encoder.pkl')
-    lb = joblib.load('./starter/model/lb.pkl')
     df = pd.DataFrame(entry_underscores, index=[0])
     df = df.rename(columns={'marital_status': 'marital-status', 'native_country': 'native-country'})
     X_test, y_test, new_encoder, new_lib = process_data(
-        df, categorical_features=get_cat_features(), label=None, training=False, encoder=encoder, lb=lb
+        df, categorical_features=get_cat_features(), label=None, training=False, encoder=encoder, lb=binarizer
     )
-    preds = inference(lgbm_class, X_test)
+    preds = inference(model, X_test)
     answer = ""
     if(preds[0] == 0):
         answer = "<=50K"
