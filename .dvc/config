@@ -1,6 +1,6 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = s3://bit-bucket-census
+    url = s3://census-bit-bucket
     credentialpath = /home/kelbenj/.aws/credentials
     profile = census
