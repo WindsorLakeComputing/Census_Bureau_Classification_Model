@@ -41,7 +41,7 @@ jobs:
     - name: Pull data from DVC
       run: |
         dvc remote add -d s3-bucket s3://bit-bucket-census
-        dvc pull 
+        dvc pull -v
     - name: Test with pytest
       run: |
         pytest
