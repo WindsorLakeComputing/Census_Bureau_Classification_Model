@@ -1,0 +1,4 @@
+outs:
+- md5: 9af162f35bfebdd3c88ee9cf762ee014
+  size: 350396
+  path: lgbm_class.pkl
