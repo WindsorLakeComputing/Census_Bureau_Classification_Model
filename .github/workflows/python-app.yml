@@ -42,6 +42,7 @@ jobs:
       run: |
         dvc remote add -d s3-bucket s3://bit-bucket-census
         dvc pull -R
+        dvc pull starter/data/census.csv.dvc
     - name: Test with pytest
       run: |
         pytest
