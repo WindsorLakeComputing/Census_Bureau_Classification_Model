@@ -40,7 +40,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Pull data from DVC
       run: |
-        dvc remote add -d s3-bucket s3://bit-bucket-census
+        dvc remote add -d s3-bucket s3://census-bit-bucket
         dvc pull -R
         dvc pull starter/model/lgbm_class.pkl
     - name: Test with pytest
