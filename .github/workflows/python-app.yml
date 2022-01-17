@@ -42,7 +42,7 @@ jobs:
       run: |
         dvc remote add -d s3-bucket s3://bit-bucket-census
         dvc pull -R
-        dvc pull starter/data/census.csv.dvc
+        dvc pull starter/model/lgbm_class.pkl.dvc
     - name: Test with pytest
       run: |
         pytest
