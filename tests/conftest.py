@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import joblib
-from ..starter.starter.train_model import get_train_test_data, make_predictions
+from ..starter.starter.train_model import get_train_test_data, make_predictions, test_preditions
 
 @pytest.fixture(scope="module")
 def data():
@@ -15,8 +15,27 @@ def test_data():
     return get_train_test_data("starter/data/clean_census.csv", .2)
 
 @pytest.fixture(scope="module")
-def test_data():
-    make_predictions(model(), "salary", encoder(), lb(), test_data())
+def get_predictions():
+    preds, y_test = make_predictions(model(), "salary", encoder(), lb(), test_data())
+    preds, y_test = test_preditions(preds, y_test)
+    precision, recall, beta = test_preditions(preds, y_test)
+
+    return precision, recall, beta
+
+@pytest.fixture(scope="module")
+def precision():
+    precision, recall, beta = get_predictions()
+    return precision
+
+@pytest.fixture(scope="module")
+def recall():
+    precision, recall, beta = get_predictions()
+    return recall
+
+@pytest.fixture(scope="module")
+def beta():
+    precision, recall, beta = get_predictions()
+    return beta
 
 @pytest.fixture(scope="module")
 def model():
