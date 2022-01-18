@@ -44,6 +44,7 @@ def test_preditions(preds, y_test):
     print(recall)
     print("beta")
     print(beta)
+    return precision, recall, beta
 
 def print_model_metrics(file_name, test_data, label, encoder, lb, model, categorical_col):
     f = open(file_name, "w")

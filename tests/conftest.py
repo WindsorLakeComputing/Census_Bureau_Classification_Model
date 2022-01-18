@@ -9,14 +9,11 @@ def data():
 
     return data
 
-@pytest.fixture(scope="module")
-def test_data():
-
+def get_test_data():
     return get_train_test_data("starter/data/clean_census.csv", .2)
 
-@pytest.fixture(scope="module")
 def get_predictions():
-    preds, y_test = make_predictions(model(), "salary", encoder(), lb(), test_data())
+    preds, y_test = make_predictions(model(), "salary", encoder(), lb(), get_test_data())
     preds, y_test = test_preditions(preds, y_test)
     precision, recall, beta = test_preditions(preds, y_test)
 
