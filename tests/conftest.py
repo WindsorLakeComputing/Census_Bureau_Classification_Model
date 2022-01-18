@@ -1,12 +1,22 @@
 import pytest
 import pandas as pd
 import joblib
+from ..starter.starter.train_model import get_train_test_data, make_predictions
 
 @pytest.fixture(scope="module")
 def data():
     data = pd.read_csv("starter/data/clean_census.csv")
 
     return data
+
+@pytest.fixture(scope="module")
+def test_data():
+
+    return get_train_test_data("starter/data/clean_census.csv", .2)
+
+@pytest.fixture(scope="module")
+def test_data():
+    make_predictions(model(), "salary", encoder(), lb(), test_data())
 
 @pytest.fixture(scope="module")
 def model():
