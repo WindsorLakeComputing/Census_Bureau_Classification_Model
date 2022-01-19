@@ -1,8 +1,6 @@
 import pytest
 import pandas as pd
 import joblib
-z
-from ..starter.starter.train_model import get_train_test_data
 
 @pytest.fixture(scope="module")
 def data():
