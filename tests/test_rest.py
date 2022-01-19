@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from .main import app
+from ..main import app
 import pytest
 
 # Since I introduced model load on startup in main.py, there was an issue with testing
