@@ -13,7 +13,7 @@ def get_test_data():
     return get_train_test_data("starter/data/clean_census.csv", .2)
 
 def get_predictions():
-    preds, y_test = make_predictions(get_model(), "salary", encoder(), lb(), get_test_data())
+    preds, y_test = make_predictions(get_model(), "salary", get_encoder(), get_lb(), get_test_data())
     preds, y_test = test_preditions(preds, y_test)
     precision, recall, beta = test_preditions(preds, y_test)
 
@@ -51,11 +51,21 @@ def encoder():
 
     return encoder
 
+def get_encoder():
+    encoder = joblib.load('starter/model/encoder.pkl')
+
+    return encoder
+
 @pytest.fixture(scope="module")
 def lb():
     lb = joblib.load('starter/model/lb.pkl')
 
     return lb
+
+def get_lb():
+    lb = joblib.load('starter/model/lb.pkl')
+
+    return get_lb
 
 @pytest.fixture(scope="module")
 def true_positive():
