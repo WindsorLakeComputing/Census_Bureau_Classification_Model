@@ -1,6 +1,9 @@
 import pandas as pd
-from ..starter.starter.ml.data import process_data
-from ..starter.starter.ml.model import inference
+import os
+import sys
+sys.path.insert(0, os.getcwd())
+from starter.starter.ml.data import process_data
+from starter.starter.ml.model import inference
 
 def test_data_amount(data):
     assert 32500 < data.shape[0] < 1000000
