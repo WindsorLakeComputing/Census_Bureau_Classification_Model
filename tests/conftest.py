@@ -13,7 +13,7 @@ def get_test_data():
     return get_train_test_data("starter/data/clean_census.csv", .2)
 
 def get_predictions():
-    preds, y_test = make_predictions(model(), "salary", encoder(), lb(), get_test_data())
+    preds, y_test = make_predictions(get_model(), "salary", encoder(), lb(), get_test_data())
     preds, y_test = test_preditions(preds, y_test)
     precision, recall, beta = test_preditions(preds, y_test)
 
@@ -33,6 +33,11 @@ def recall():
 def beta():
     precision, recall, beta = get_predictions()
     return beta
+
+def get_model():
+    lgbm_class = joblib.load('starter/model/lgbm_class.pkl')
+
+    return lgbm_class
 
 @pytest.fixture(scope="module")
 def model():
