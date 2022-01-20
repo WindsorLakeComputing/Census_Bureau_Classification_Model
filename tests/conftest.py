@@ -1,6 +1,10 @@
 import pytest
 import pandas as pd
 import joblib
+import os
+import sys
+sys.path.insert(0, os.getcwd())
+from main import app
 
 @pytest.fixture(scope="module")
 def data():
@@ -58,3 +62,8 @@ def cat_features():
     ]
 
     return cat_features
+
+@pytest.fixture
+def client():
+    with TestClient(app) as client:
+        yield
