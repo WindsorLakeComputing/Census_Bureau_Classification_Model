@@ -14,12 +14,6 @@ def data():
     return data
 
 @pytest.fixture(scope="module")
-def data():
-    data = pd.read_csv("starter/data/clean_census.csv")
-
-    return data
-
-@pytest.fixture(scope="module")
 def model():
     lgbm_class = joblib.load('starter/model/lgbm_class.pkl')
 
@@ -63,8 +57,3 @@ def cat_features():
     ]
 
     return cat_features
-
-@pytest.fixture
-def client():
-    with TestClient(app) as client:
-        yield
