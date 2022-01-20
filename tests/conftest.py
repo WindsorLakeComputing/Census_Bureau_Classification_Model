@@ -80,7 +80,7 @@ def true_positive():
     return true_positive
 
 @pytest.fixture(scope="module")
-def true_positive():
+def true_negative():
     true_negative = {'age': 50,
                     'workclass': 'Self-emp-not-inc',
                     'fnlgt': 83311,
