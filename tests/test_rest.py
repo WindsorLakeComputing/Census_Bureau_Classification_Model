@@ -6,8 +6,7 @@ import pytest
 # models as they were not loading. This structure allows to pass tests with async model load
 
 
-def test_get_root():
-    client = TestClient(app)
+def test_get_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {

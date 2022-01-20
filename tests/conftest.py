@@ -1,9 +1,11 @@
 import pytest
 import pandas as pd
 import joblib
+from fastapi.testclient import TestClient
 import os
 import sys
 from fastapi.testclient import TestClient
+from main import app
 sys.path.insert(0, os.getcwd())
 from main import app
 
@@ -57,3 +59,7 @@ def cat_features():
     ]
 
     return cat_features
+
+@pytest.fixture(scope="module")
+def client():
+    client = TestClient(app)
