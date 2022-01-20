@@ -61,12 +61,6 @@ def cat_features():
     return cat_features
 
 @pytest.fixture(scope="module")
-def client():
-    client = TestClient(app)
-
-    return client
-
-@pytest.fixture(scope="module")
 def true_positive():
     true_positive = {"age": 47,
                     'workclass': 'Private-gov',
@@ -84,3 +78,22 @@ def true_positive():
                     'native-country': 'Honduras'}
 
     return true_positive
+
+@pytest.fixture(scope="module")
+def true_positive():
+    true_negative = {'age': 50,
+                    'workclass': 'Self-emp-not-inc',
+                    'fnlgt': 83311,
+                    'education': 'Bachelors',
+                    'education-num': 13,
+                    'marital_status': 'Married-civ-spouse',
+                    'occupation': 'Exec-managerial',
+                    'relationship': 'Husband',
+                    'race': 'White',
+                    'sex': 'Male',
+                    'capital-gain': 0,
+                    'capital_loss': 0,
+                    'hours-per-week': 13,
+                    'native-country': 'United-States'}
+
+    return true_negative
