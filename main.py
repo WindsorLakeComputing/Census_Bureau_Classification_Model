@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 import joblib
 import pandas as pd
 import os
@@ -52,10 +52,28 @@ async def say_hello():
     return {"greeting": "Hello there!"}
 
 @app.post("/census/")
-async def create_item(entry: CensusEntry):
+async def create_item(entry: CensusEntry = Body(
+    ...,
+    example={
+        "age": 47,
+        "workclass": "Private-gov",
+        "fnlgt": 51835,
+        "education": "Prof-school",
+        "education-num": 15,
+        "marital-status": "Married-civ-spouse",
+        "occupation": "Prof-specialty",
+        "relationship": "Wife",
+        "race": "White",
+        "sex": "Female",
+        "capital-gain": 0,
+        "capital-loss":1902,
+        "hours-per-week": 60,
+        "native-country": "Honduras"
+    },
+)):
+
     entry_underscores = entry.dict(by_alias=True)
     df = pd.DataFrame(entry_underscores, index=[0])
-    df = df.rename(columns={'marital_status': 'marital-status', 'native_country': 'native-country'})
     X_test, y_test, new_encoder, new_lib = process_data(
         df, categorical_features=get_cat_features(), label=None, training=False, encoder=encoder, lb=binarizer
     )
