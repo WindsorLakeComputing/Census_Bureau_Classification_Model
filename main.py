@@ -2,6 +2,8 @@ from fastapi import FastAPI, Body
 import joblib
 import pandas as pd
 import os
+import sys
+sys.path.insert(0, os.getcwd())
 from starter.starter.ml.model import inference
 from starter.starter.ml.data import process_data, get_cat_features
 
