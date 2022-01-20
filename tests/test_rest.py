@@ -10,4 +10,4 @@ def test_get_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {
-        "greeting": "Hello there!"}
+        "greeting": "Hello there?"}
