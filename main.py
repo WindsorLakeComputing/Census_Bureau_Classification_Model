@@ -85,4 +85,4 @@ async def create_item(entry: CensusEntry = Body(
         answer = "<=50K"
     else:
         answer = ">50K"
-    return ("The prediction is that the salary is " + answer)
+    return {"response": ("The prediction is that the salary is " + answer)}

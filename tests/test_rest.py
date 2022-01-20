@@ -30,5 +30,5 @@ def test_post_true_positive(true_positive):
         print(response.json()[0])
         print("response.json()")
         print(response.json())
-        assert response.json()['result'] == {
+        assert response.json()['response'] == {
             "The prediction is that the salary is >50K"}
