@@ -19,7 +19,7 @@ def test_post_true_positive(true_positive):
         assert response.status_code == 200
         assert response.json()['response'] == 'The prediction is that the salary is >50K'
 
-def test_post_true_positive(true_positive):
+def test_post_true_positive(true_negative):
     with TestClient(app) as client:
         response = client.post("/census/", data=json.dumps(true_negative))
         assert response.status_code == 200
