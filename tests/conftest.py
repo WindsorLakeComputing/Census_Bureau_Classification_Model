@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import os
 import sys
+from fastapi.testclient import TestClient
 sys.path.insert(0, os.getcwd())
 from main import app
 
