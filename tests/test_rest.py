@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 import pytest
+import json
 
 # Since I introduced model load on startup in main.py, there was an issue with testing
 # models as they were not loading. This structure allows to pass tests with async model load
@@ -14,7 +15,7 @@ def test_get_root(client):
 
 
 def test_post_true_positive(client, true_positive):
-    response = client.post("/census/")
+    response = client.post("/census/", data=json.dumps(true_positive))
     assert response.status_code == 200
     assert response.json() == {
         "The prediction is that the salary is >50K"}
