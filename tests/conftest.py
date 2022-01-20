@@ -63,3 +63,5 @@ def cat_features():
 @pytest.fixture(scope="module")
 def client():
     client = TestClient(app)
+
+    return client
