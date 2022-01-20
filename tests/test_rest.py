@@ -10,4 +10,11 @@ def test_get_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {
-        "greeting": "Hello there?"}
+        "greeting": "Hello there!"}
+
+
+def test_post_true_positive(client, true_positive):
+    response = client.post("/census/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "The prediction is that the salary is >50K"}

@@ -65,3 +65,22 @@ def client():
     client = TestClient(app)
 
     return client
+
+@pytest.fixture(scope="module")
+def true_positive():
+    true_positive = {"age": 47,
+                    'workclass': 'Private-gov',
+                    'fnlgt': 51835,
+                    'education': 'Prof-school',
+                    'education-num': 15,
+                    'marital-status': 'Married-civ-spouse',
+                    'occupation': 'Prof-specialty',
+                    'relationship': 'Wife',
+                    'race': 'White',
+                    'sex': 'Female',
+                    'capital-gain': 0,
+                    'capital-loss': 1902,
+                    'hours-per-week': 60,
+                    'native-country': 'Honduras'}
+
+    return true_positive
