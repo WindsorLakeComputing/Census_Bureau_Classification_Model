@@ -86,7 +86,7 @@ def true_positive():
                     'fnlgt': 83311,
                     'education': 'Bachelors',
                     'education-num': 13,
-                    'marital_status': 'Married-civ-spouse',
+                    'marital-status': 'Married-civ-spouse',
                     'occupation': 'Exec-managerial',
                     'relationship': 'Husband',
                     'race': 'White',
